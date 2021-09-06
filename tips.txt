@@ -1,4 +1,29 @@
 NodeJs não é um framework JS > É uma plataforma voltada para criação
 de aplicações JS
 
+node{
+    App > V8 (executa js) > bind para transformar JS em c++ > Executar na maquina pela LIBUV
 
+    Pilha de eventos  bloqueantes, são delegados para o SO executar, após finalizado callback retorna
+    para o solicitante
+
+    Node é single thread manipulando o event loop, ele recebe as requests e repassa para a threadpool do servidor
+    Quem trabalha com as threads é o S.O
+
+    Event Loop  delega os eventos
+}
+
+JS {
+    Tudo o que depende de execução externa (bancos, filesystems, etc) é executado em background
+    Por conta disso nem sempre a ordem que eu defino o codigo vai representar a ordem de execução(func assincronas)
+
+}
+
+
+
+-------------------------
+
+
+mkdir 
+touch
+npm init -y
