@@ -1,0 +1,4 @@
+NodeJs não é um framework JS > É uma plataforma voltada para criação
+de aplicações JS
+
+
