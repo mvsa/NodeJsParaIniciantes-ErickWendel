@@ -78,6 +78,7 @@ userPromise
     })
     .catch(function(error){
         console.error('erro', error);
+        
     })
 
 
