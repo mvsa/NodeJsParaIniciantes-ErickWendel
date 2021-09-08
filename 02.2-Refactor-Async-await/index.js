@@ -52,7 +52,7 @@ async function main() {
         // const telefone = await getUserPhone(usuario.id);
         // const endereco = await getUserAddressAsync(usuario.id);
         //mudança siginificativa de performance ao colocar os awaits comentados no bloco de promise.all
-
+        //pois ali serão rodados em segundo plano de forma assincrona
 
         //esses dois podem vir junto no bloco abaixo pois dependem apenas do codigo de usuario que nesse momento 
         //ja foi coletado

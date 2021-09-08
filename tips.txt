@@ -20,6 +20,21 @@ JS {
 }
 
 
+Promise{
+    Não confundir uso com o eventEmmiter, a promise presa por após o evento ser executado a ação é encerrada (roda 1 vez)
+    EventEmitter são para ações continuas
+}
+
+EventEmitter{
+    Usado em ações continuas (cliques, arquivos, inputs de user, etc) 
+    ("faça tal ação quando determinado gatilho for disparado")
+    Bastante usado em browesers (ex .onCLick)
+    Trabalha sob o desing pattern Observer/PubSub {
+        Tenho um hub de mensagem e uma lista de publicadores envia suas ações a esse hub
+        E tenho um conjunto de observers conectados a esse hub que a cada mensagem recebida o hub distribui para
+        todo mundo que está conectado/ouvindo essa caixa/hub
+    }
+}
 
 -------------------------
 
@@ -27,3 +42,25 @@ JS {
 mkdir 
 touch
 npm init -y
+.trim = remover espaços do inicio ou fim do texto
+std
+
+---------------------
+
+Medindo tempo de exec{
+    colocar no inicio e fim da instrução:
+
+     console.time('ex');
+     console.timeEnd('ex');
+
+}
+
+Leitura de linha de comando{
+    Usando somente o Node.js puro, existem diversas formas de capturar
+    a resposta do usuário, como o process.openStdin() onde você precisa aguardar
+    por eventos para receber chamadas, e o módulo readline, que acho mais simples e fácil de utilizar.
+
+    The process.stdin property is an inbuilt application programming interface
+     of the process module which listens for the user input. The stdin property
+      of the process object is a Readable Stream. It uses on() function to listen for the event.
+}
