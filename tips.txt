@@ -21,7 +21,7 @@ JS {
 
 
 Promise{
-    Não confundir uso com o eventEmmiter, a promise presa por após o evento ser executado a ação é encerrada (roda 1 vez)
+    Não confundir uso com o eventEmmiter, a promise preza por após o evento ser executado a ação é encerrada (roda 1 vez)
     EventEmitter são para ações continuas
 }
 
