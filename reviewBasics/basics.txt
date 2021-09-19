@@ -1,0 +1,54 @@
+Topicos:
+
+
+I/O Não bloqueante: {
+    Capacidade do node.js executar operações de I/O sem bloquear a execução principal(thread)
+    Ou seja, operações como: requisição de rede, gravação de disco, consulta em BD, etc ocorrem
+    sem bloquear o fluxo do programa.
+
+
+    Em java esse processo ocorre através do gerenciamento de threads
+}
+
+Single Thread: {
+    O nome é Single Thread. Porém seu processo usa um pool de threads também
+    O iniciar uma aplicação em node é criada uma thread principal que vai executar o codigo js
+    (Engine V8 (c++)) e aonde sera alocado o Event Loop
+    A libuv (c++) é quem implementa uma thread pool (default de 4) utilizando os recursos do S.o
+    para rodar operações pesadas de forma assincrona
+    e o resultado dessas execuções são retornados para a task queue
+
+    Pilha de execução: FILO
+    Task Queue: FIFO
+
+    Neste caso, o node é mais indicado para trabalhar com grande volume de operações de I/O, exemplo
+    consumo de APIs.
+    Já para processamento pesado de informações não é tão recomendado 
+}
+
+Event Loop: {
+    Funcionamento de While, permite que o node execute operações de I/O assincronas, enviando sempre que 
+    possivel para o kernel libuv.
+    Quando uma operação é finalizada, o kernel avisa o node.js (task queue) para que o callback
+    responsavel pela aquela operação possa ser adicionado na fila de execução (call stack)
+}
+
+Promisses:{
+    Surgiram para facilitar o gerenciamento de encadeamento de funções assincronas.
+    Evitando o callBack hell.
+    Uma promisse pode ter seu estado definido nos parametros resolve, reject.
+    Cada promisse retorna um metodo .then e um .catch (sucesso/erro)
+
+    um catch também retorna uma outra promisse, e portanto posso encadear um then depois de um catch
+
+}
+
+Async Await: {
+    Forma de simplificar o uso de promises.
+    Uma função definida como async vai sempre retornar uma promises (Não é necessario explicitar no retorno um New Promise)
+    O Await faz com que a função espera até que a promise seja estabelecida e retorne seu resultado.
+    Evitando encadeamento de .then()
+    Para tratar erros utiliza-se try/catch, e para rejeitar promise utiliza-se throws
+
+    Pode-se encadera funções async com .then
+}
