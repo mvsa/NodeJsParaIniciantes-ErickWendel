@@ -19,8 +19,8 @@ class Database{
         
     }
 
-    writeFile(){
-
+    async writeFile(){
+        
     }
 
 

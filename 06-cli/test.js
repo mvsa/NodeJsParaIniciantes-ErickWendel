@@ -18,9 +18,9 @@ describe ('Suite de manipulação de Herois', ()=>{
 
     })
 
-    // it('should be able to register a hero, using files', async()=>{
-    //     const expected = {DEFAULT_ITEM}
+    it('should be able to register a hero, using files', async()=>{
+        const expected = DEFAULT_ITEM
 
-    //     ok(null, expected)
-    // })
+        deepEqual(null, expected)
+    })
 })
