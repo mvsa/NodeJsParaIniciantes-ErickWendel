@@ -1,7 +1,8 @@
-const {readFile} = require('fs')
+const {readFile,writeFile} = require('fs')
 const {promisify} = require('util');
 
 const readFileAsync = promisify(readFile)
+const writeFileAsyn = promisify(writeFile)
 
 //const dadosJson = require('./herois.json') Como é um json eu poderia fazer dessa forma tbm
 
@@ -19,8 +20,28 @@ class Database{
         
     }
 
-    async writeFile(){
-        
+    async writeFile(dados){
+        await writeFileAsyn(this.FILE_NAME, JSON.stringify(dados))
+        return true
+    }
+
+    async register(heroi){
+        const dados = await this.getDataFromFile()
+        const id = heroi.id <= 2 ? heroi.id : Date.now()
+
+        const constHeroiComId = {
+            id,
+            ...heroi 
+        }
+
+        const dadosFinal = [
+            ...dados, 
+            constHeroiComId
+        ]
+
+        const resultado = await this.writeFile(dadosFinal)
+        return resultado;
+
     }
 
 

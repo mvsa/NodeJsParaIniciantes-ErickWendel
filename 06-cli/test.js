@@ -5,6 +5,9 @@ const input = require('./service');
 const DEFAULT_ITEM = {nome: 'Flash', poder:'Speed', id:1}
 
 describe ('Suite de manipulação de Herois', ()=>{
+    before(async()=>{
+        await input.register(DEFAULT_ITEM)
+    })
 
     it('should be able to search a hero, using files', async()=>{
         const expected = DEFAULT_ITEM
@@ -20,7 +23,9 @@ describe ('Suite de manipulação de Herois', ()=>{
 
     it('should be able to register a hero, using files', async()=>{
         const expected = DEFAULT_ITEM
-
-        deepEqual(null, expected)
+        await input.register(DEFAULT_ITEM)
+        const [actual] = await input.list(DEFAULT_ITEM.id)
+        
+        deepEqual(actual, expected)
     })
 })
