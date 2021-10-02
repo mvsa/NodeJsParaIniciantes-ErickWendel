@@ -28,4 +28,13 @@ describe ('Suite de manipulação de Herois', ()=>{
         
         deepEqual(actual, expected)
     })
+
+    it('should be able to delete a hero, using files', async()=>{
+        const expected = true;
+        const resultado = await input.delete(DEFAULT_ITEM.id)
+        deepEqual(resultado, expected)
+
+
+
+    })
 })

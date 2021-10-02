@@ -52,6 +52,22 @@ class Database{
         })
         return filteredData
     }
+
+    async delete(id){
+        if(!id){
+           return  await this.writeFile([])
+
+        }
+        const data = await this.getDataFromFile()
+        const indice = data.findIndex(item => item.id === parseInt(id))
+        if(indice == -1){
+            throw Error('usuário não existe')
+        }
+
+        data.splice(indice, 1);
+        
+        return await this.writeFile(data)
+    }
 }
 
 module.exports = new Database();
