@@ -1,4 +1,4 @@
-const {readFile,writeFile} = require('fs')
+const {readFile,writeFile} = require('fs');
 const {promisify} = require('util');
 
 const readFileAsync = promisify(readFile)
@@ -62,11 +62,36 @@ class Database{
         const indice = data.findIndex(item => item.id === parseInt(id))
         if(indice == -1){
             throw Error('usuário não existe')
+
         }
 
         data.splice(indice, 1);
-        
+
         return await this.writeFile(data)
+    }
+
+    async update(id, modificacoes){
+        const dados = await this.getDataFromFile()
+        const indice = dados.findIndex(item => item.id === parseInt(id))
+        if(indice === -1){
+            throw Error('Heroi não existe')
+        }
+
+        const atual = dados[indice]
+
+            //o que estiver de difenrete nas modificações vai substituir os valores de atual
+        const objetoAtualizar = {
+            ...atual,
+            ...modificacoes
+        }
+      
+        dados.splice(indice, 1)
+
+        return await this.writeFile([
+            ...dados, 
+            objetoAtualizar
+        ])
+        
     }
 }
 

@@ -3,10 +3,12 @@ const {deepEqual,ok} = require('assert') ;
 const input = require('./service');
 
 const DEFAULT_ITEM = {nome: 'Flash', poder:'Speed', id:1}
+const DEFAULT_ITEM_ATUALIZAR = {nome: 'superman', poder:'força',id:2}
 
 describe ('Suite de manipulação de Herois', ()=>{
     before(async()=>{
         await input.register(DEFAULT_ITEM)
+        await input.register(DEFAULT_ITEM_ATUALIZAR)
     })
 
     it('should be able to search a hero, using files', async()=>{
@@ -33,8 +35,21 @@ describe ('Suite de manipulação de Herois', ()=>{
         const expected = true;
         const resultado = await input.delete(DEFAULT_ITEM.id)
         deepEqual(resultado, expected)
+    })
 
 
-
+    it('should be able to update a hero by id, using files', async()=>{
+        const expected = {
+            ...DEFAULT_ITEM_ATUALIZAR,
+            nome:'batman',
+            poder:'dinheiro'
+        }
+        const novoDado = {
+            nome:'batman',
+            poder:'dinheiro'
+        }
+        await input.update(DEFAULT_ITEM_ATUALIZAR.id,novoDado)
+        const [resultado] = await input.list(DEFAULT_ITEM_ATUALIZAR.id)
+        deepEqual(resultado, expected)
     })
 })
