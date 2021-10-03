@@ -5,3 +5,5 @@ Commander, lib para ferramentas de linhas de comando
 
 adicionar flag --help na execução do index
 para o commander trazer suas funções
+
+strings com espaço devem estar envoltas de aspas na command line
