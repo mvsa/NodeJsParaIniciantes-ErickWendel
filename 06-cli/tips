@@ -1,2 +1,7 @@
 todo script custom no node a gente roda com run
 scrits padroes não precisa
+
+Commander, lib para ferramentas de linhas de comando
+
+adicionar flag --help na execução do index
+para o commander trazer suas funções
