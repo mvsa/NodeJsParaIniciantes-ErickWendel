@@ -5,7 +5,7 @@ class NotImplementedException extends Error {
 }
 
 class ICrud{
-    creaste(item){
+    create(item){
         throw new NotImplementedException()
     }
 
@@ -20,13 +20,34 @@ class ICrud{
     delete(id){
         throw new NotImplementedException()
     }
+
+    etc(id){
+        throw new NotImplementedException()
+    }
 }
 
 class MongoDB extends ICrud{
+    constructor(){
+        super() // classe que extende precisa chamar o super para invocar o construtor da pai
+    }
 
+    create(item){
+        console.log('item salvo em MONGODB')
+    }
 }
 
-class ContextStrategy{
+class Postegres extends ICrud{ // classe concreta
+    constructor(){
+        super() // classe que extende precisa chamar o super para invocar o construtor da pai
+    }
+
+    create(item){
+        console.log('item salvo em Postegres')
+    }
+}
+
+
+class ContextStrategy{ // classe abstrata
     constructor(strategy){
         this._database = strategy
     }
@@ -41,10 +62,14 @@ class ContextStrategy{
     }
 
     update(id,item){
-        return this._database.update(id.item)
+        return this._database.update(id,item)
     }
 
     delete(id){
         return this._database.delete(id)
     }
 }
+
+const contextMongo = new ContextStrategy(new MongoDB())
+contextMongo.create()
+contextMongo.etc() // função não implementada na classe concreta
