@@ -1,32 +1,37 @@
-const ICrud  = require('../interfaces/InterfaceCrud')
+const ICrud = require("../interfaces/InterfaceCrud");
 
-class ContextStrategy extends ICrud{ // classe abstrata
-    
-    constructor(strategy){
-        super()
-        this._database = strategy
-    }
+class ContextStrategy extends ICrud {
+  // classe abstrata
 
-    create(item){
-        this._database.create(item) // ele vai tentar chamar a implementação create do banco passado/ Caso o banco
-        // não tenha essa implementação vai ser puxado o metodo da classe pai que vai levantar a exception
-    }
+  constructor(strategy) {
+    super();
+    this._database = strategy;
+  }
 
-    read(item){
-        return this._database.read(item)
-    }
+  create(item) {
+    return this._database.create(item); // ele vai tentar chamar a implementação create do banco passado/ Caso o banco
+    // não tenha essa implementação vai ser puxado o metodo da classe pai que vai levantar a exception
+  }
 
-    update(id,item){
-        return this._database.update(id,item)
-    }
+  read(item) {
+    return this._database.read(item);
+  }
 
-    delete(id){
-        return this._database.delete(id)
-    }
+  update(id, item) {
+    return this._database.update(id, item);
+  }
 
-    isConnected(){
-        return this._database.isConnected()
-    }
+  delete(id) {
+    return this._database.delete(id);
+  }
+
+  isConnected() {
+    return this._database.isConnected();
+  }
+
+  connect() {
+    return this._database.connect();
+  }
 }
 
-module.exports = ContextStrategy
+module.exports = ContextStrategy;

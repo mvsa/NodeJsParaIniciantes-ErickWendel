@@ -7,26 +7,27 @@ class Postegres extends ICrud {
     super(); // classe que extende precisa chamar o super para invocar o construtor da pai
     this._driver = null;
     this._herois = null;
-    this._connect()
+    // this._connect()
   }
 
   async isConnected() {
     try {
-        await this._driver.authenticate()
-        return true
+      await this._driver.authenticate();
+      return true;
     } catch (error) {
-        console.log('fail', error);
-        return false
+      console.log("fail", error);
+      return false;
     }
   }
 
-  _connect() {
+  async connect() {
     this._driver = new Sequelize("heros", "mavcs", "mysecret", {
       host: "localhost",
       dialect: "postgres",
       quoteIdentifiers: false,
       operatorAliases: false,
     });
+    await this.defineModel();
   }
 
   async defineModel() {
@@ -54,11 +55,16 @@ class Postegres extends ICrud {
         timestamps: false,
       }
     );
-    await Herois.sync();
+    await this._herois.sync();
   }
 
-  create(item) {
-    console.log("item salvo em Postegres");
+  async create(item) {
+    const { dataValues } = await this._herois.create(item);
+    return dataValues;
+  }
+
+  async read(item = {}) {
+    return await this._herois.findAll({where:item, raw:true});
   }
 }
 
