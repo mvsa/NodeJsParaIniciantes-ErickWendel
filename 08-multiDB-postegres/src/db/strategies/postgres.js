@@ -29,7 +29,7 @@ class Postegres extends ICrud {
     });
   }
 
-  defineModel() {
+  async defineModel() {
     this._herois = this._driver.define(
       "herois",
       {
