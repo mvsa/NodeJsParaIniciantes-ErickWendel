@@ -11,6 +11,7 @@ describe("Postgres Strategy", function () {
   this.timeout(Infinity);
   this.beforeAll(async function () {
     await context.connect();
+    await context.delete()
     await context.create(MOCK_HEROI_ATUALIZAR)
   });
   it("PostgresSql Connection", async function () {
@@ -31,7 +32,7 @@ describe("Postgres Strategy", function () {
       assert.deepEqual(result,MOCK_HEROI_CADASTRAR)
   });
 
-  it('Should be ale to update a register', async()=>{
+  it('Should be able to update a register', async()=>{
     const [itemAtualizar] = await context.read({nome:MOCK_HEROI_ATUALIZAR.nome})
     const novoItem = {
       ...MOCK_HEROI_ATUALIZAR,
@@ -43,4 +44,11 @@ describe("Postgres Strategy", function () {
     assert.deepEqual(result, 1)
 
   })
+
+  it('should be able to delete a register', async ()=>{
+    const [item] = await context.read({})
+    const result = await context.delete(item.id)
+    assert.deepEqual(result,1)
+  })
+  
 });

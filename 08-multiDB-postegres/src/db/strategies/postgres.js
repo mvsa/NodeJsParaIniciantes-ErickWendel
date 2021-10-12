@@ -72,6 +72,10 @@ class Postegres extends ICrud {
     //metodo de update nao retorna valor atualizado e sim 1 //-1  success/error
   }
 
+  async delete (id){
+    const query = id ? {id} : {}
+    return this._herois.destroy({where: query})
+  }
 
 }
 
