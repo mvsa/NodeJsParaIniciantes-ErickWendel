@@ -66,6 +66,13 @@ class Postegres extends ICrud {
   async read(item = {}) {
     return await this._herois.findAll({where:item, raw:true});
   }
+
+  async update(id, item){
+    return await this._herois.update(item,{where:{id}})
+    //metodo de update nao retorna valor atualizado e sim 1 //-1  success/error
+  }
+
+
 }
 
 module.exports = Postegres;
