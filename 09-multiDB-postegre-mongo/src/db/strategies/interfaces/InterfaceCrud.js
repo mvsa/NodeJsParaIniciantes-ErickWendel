@@ -25,6 +25,10 @@ class ICrud{
         throw new NotImplementedException()
     }
 
+    connect(){
+        throw new NotImplementedException()
+    }
+
     etc(id){
         throw new NotImplementedException()
     }

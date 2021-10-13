@@ -36,4 +36,4 @@
 //por padrao ele n atualiza e massa, apenas 1
 
 //delete
-db.herois.remove({nome:'x'})
+//db.herois.remove({nome:'x'})

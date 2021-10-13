@@ -7,7 +7,6 @@ class Postegres extends ICrud {
     super(); // classe que extende precisa chamar o super para invocar o construtor da pai
     this._driver = null;
     this._herois = null;
-    // this._connect()
   }
 
   async isConnected() {
