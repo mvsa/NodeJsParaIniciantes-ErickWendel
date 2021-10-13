@@ -13,8 +13,8 @@ class ContextStrategy extends ICrud {
     // não tenha essa implementação vai ser puxado o metodo da classe pai que vai levantar a exception
   }
 
-  read(item) {
-    return this._database.read(item);
+  read(item, skip, limit) {
+    return this._database.read(item, skip, limit);
   }
 
   update(id, item) {
