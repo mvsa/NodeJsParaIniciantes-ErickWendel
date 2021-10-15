@@ -1,16 +1,19 @@
 const assert = require("assert");
-const Postegres = require("../db/strategies/postgres");
+const Postegres = require("../db/strategies/postgres/postgres");
+const HeroiSchema = require('../db/strategies/postgres/schemas/heroisSchema')
 const Context = require("../db/strategies/base/contextStrategy");
 
-const context = new Context(new Postegres());
+
 const MOCK_HEROI_CADASTRAR = { nome: "gaviao", poder: "flechas" };
 const MOCK_HEROI_ATUALIZAR = { nome: "batman", poder: "dinheiro" };
 
-
+let context = {}
 describe("Postgres Strategy", function () {
   this.timeout(Infinity);
   this.beforeAll(async function () {
-    await context.connect();
+    const connection = await Postegres.connect()
+    const model = await Postegres.defineModel(connection, HeroiSchema)
+    context = new Context(new Postegres(connection, model))
     await context.delete()
     await context.create(MOCK_HEROI_ATUALIZAR)
   });

@@ -33,6 +33,7 @@ class MongoDB extends ICrud {
             (error) => {
                 if (!error) return;
                 console.log("Falha na conexão", error);
+                
             }
         );
 
