@@ -23,6 +23,7 @@ async function main(){
     const context = new Context(new MongoDb(connection, HeroiSchema))
 
     //ROTAS Geradas dinamicamente a partir dos metodos da classe
+    //
     app.route([
        ...mapRoutes(new HeroRoute(context), HeroRoute.methods())
     ])
