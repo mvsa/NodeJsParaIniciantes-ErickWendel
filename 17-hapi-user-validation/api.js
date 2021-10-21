@@ -5,6 +5,9 @@ const HeroiSchema = require('./src/db/strategies/mongodb/schemas/heroisSchema')
 const HeroRoute = require('./src/routes/heroRoutes')
 const AuthRoutes = require('./src/routes/authRoutes')
 
+const PostGres = require('./src/db/strategies/postgres/postgres')
+const UsuarioSchema = require('./src/db/strategies/postgres/schemas/usuarioSchema')
+
 
 const Vision = require('vision')
 const Inert = require('inert')
@@ -30,6 +33,11 @@ async function main(){
     const connection = MongoDb.connect()
     const context = new Context(new MongoDb(connection, HeroiSchema))
 
+    const connectionPostgres = await PostGres.connect()
+    const model = await PostGres.defineModel(connectionPostgres, UsuarioSchema)
+    const contextPostgres = new Context(new PostGres(connectionPostgres, model))
+
+
     const swaggerOptions = {
         info:{
             title: 'Api Herois',
@@ -54,9 +62,22 @@ async function main(){
         // options:{
         //     expiresIn: 20
         // }
-        validate: (dado, request) =>{
+        validate: async (dado, request) =>{
+            //se depois do login o usuario for removido da base, as proximas requisições vão falhar, mesmo possuiindo um token
+            const result = await contextPostgres.read({
+                username: dado.username.toLowerCase(),
+               // id: dado.id
+            })
+            console.log(result)
+            
+            if(result.length == 0){
+                return {
+                    isValid:false
+                }
+            }
             //verifica no banco se o user continuia ativo
             //verifica no banco se o user continua adimplente
+            //se eu consolar o dado, ele mostra os dados do jwt descriptografados
             return{
                 isValid: true
             }
@@ -69,7 +90,7 @@ async function main(){
     //
     app.route([
         ...mapRoutes(new HeroRoute(context), HeroRoute.methods()),
-        ...mapRoutes(new AuthRoutes(JWT_SECRET), AuthRoutes.methods())
+        ...mapRoutes(new AuthRoutes(JWT_SECRET, contextPostgres), AuthRoutes.methods())
     ])
 
     await app.start();
