@@ -1,0 +1,27 @@
+docker run --name postgres -e POSTGRES_USER=mavcs -e POSTGRES_PASSWORD=mysecret -e POSTGRES_DB=heros -p 5432:5432 -d postgres
+
+docker run --name adminer -p 8080:8080 --link postgres:postgres -d adminer
+
+docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=senhaadmin -d mongo:4
+
+docker run --name mongoclient -p 3000:3000 --link mongodb:mongodb -d mongoclient/mongoclient
+
+{
+
+    mongo
+    name/hostport(mongodb)/database Name (admin)
+    auth: scram-sha1/autentication db admin (nome do database criado)
+}
+
+criar usuario mongo
+docker exec -it mongodb mongo --host localhost -u admin -p senhaadmin --authenticationDatabase admin --eval "db.getSiblingDB('herois').createUser({user:'marcos', pwd:'minhasenha', roles:[{role:'readWrite',db:'herois'}]})"
+
+
+Design Pattern - strategy
+
+Padrão comportamental
+Permite que o algortimo avalie qual melhor opção para atingir o objetivo
+ex: função de cadastrar heroi, posso cadastrar tanto no mongo quanto no postgres, e a gente manda qual a estrategia de implementação a ser usada
+
+
+rm -rf node_modules
